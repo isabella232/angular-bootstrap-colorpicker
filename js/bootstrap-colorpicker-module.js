@@ -724,6 +724,7 @@ angular.module('colorpicker.module', [])
 
           colorpickerTemplate.find('button').on('click', function () {
             hideColorpickerTemplate();
+            emitEvent('colorpicker-removed');
           });
 
           if (attrs.colorpickerIsOpen) {
