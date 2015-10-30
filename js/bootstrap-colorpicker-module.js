@@ -444,7 +444,7 @@ angular.module('colorpicker.module', [])
               fixedPosition = angular.isDefined(attrs.colorpickerFixedPosition) ? attrs.colorpickerFixedPosition : false,
               target = angular.isDefined(attrs.colorpickerParent) ? elem.parent() : angular.element(document.body),
               withInput = angular.isDefined(attrs.colorpickerWithInput) ? attrs.colorpickerWithInput : false,
-              inputTemplate = withInput ? '<input type="text" name="colorpicker-input">' : '',
+              inputTemplate = withInput ? '<input class="form-control" type="text" name="colorpicker-input">' : '',
               closeButton = !inline ? '<button type="button" class="close close-colorpicker">&times;</button>' : '',
               template =
                   '<div class="colorpicker dropdown">' +
@@ -452,9 +452,10 @@ angular.module('colorpicker.module', [])
                       '<colorpicker-saturation><i></i></colorpicker-saturation>' +
                       '<colorpicker-hue><i></i></colorpicker-hue>' +
                       '<colorpicker-alpha><i></i></colorpicker-alpha>' +
-                      '<colorpicker-preview></colorpicker-preview>' +
+                      '<div class="colorpicker-controls">' +
                       inputTemplate +
                       closeButton +
+                      '</div>' +
                       '</div>' +
                       '</div>',
               colorpickerTemplate = angular.element(template),
@@ -644,7 +645,7 @@ angular.module('colorpicker.module', [])
             } else if (position === 'bottom') {
               positionValue = {
                 'top': positionOffset.top + elem[0].offsetHeight + 2,
-                'left': positionOffset.left
+                'left': positionOffset.left - 118
               };
             } else if (position === 'left') {
               positionValue = {
