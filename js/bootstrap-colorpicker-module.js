@@ -625,7 +625,7 @@ angular.module('colorpicker.module', [])
           var getColorpickerTemplatePosition = function() {
             var
                 positionValue,
-                positionOffset = Helper.getOffset(elem[0]);
+                positionOffset = elem["offset"]()
 
             if(angular.isDefined(attrs.colorpickerParent)) {
               positionOffset.left = 0;
