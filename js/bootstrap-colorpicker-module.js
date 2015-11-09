@@ -445,7 +445,8 @@ angular.module('colorpicker.module', [])
               target = angular.isDefined(attrs.colorpickerParent) ? elem.parent() : angular.element(document.body),
               withInput = angular.isDefined(attrs.colorpickerWithInput) ? attrs.colorpickerWithInput : false,
               inputTemplate = withInput ? '<input class="form-control" type="text" name="colorpicker-input">' : '',
-              closeButton = !inline ? '<button type="button" class="close close-colorpicker">&times;</button>' : '',
+              closeButton = !inline ? '<i class="close close-colorpicker lk-icon-close"></i>' : '',
+              clearButton = !inline ? '<i class="fa fa-trash-o remove-colorpicker"></i>' : '',
               template =
                   '<div class="colorpicker dropdown">' +
                       '<div class="dropdown-menu">' +
@@ -454,6 +455,7 @@ angular.module('colorpicker.module', [])
                       '<colorpicker-alpha><i></i></colorpicker-alpha>' +
                       '<div class="colorpicker-controls">' +
                       inputTemplate +
+                      clearButton +
                       closeButton +
                       '</div>' +
                       '</div>' +
@@ -723,9 +725,14 @@ angular.module('colorpicker.module', [])
             }
           };
 
-          colorpickerTemplate.find('button').on('click', function () {
-            hideColorpickerTemplate();
+          colorpickerTemplate.find('.remove-colorpicker').on('click', function () {
             emitEvent('colorpicker-removed');
+            hideColorpickerTemplate();
+          });
+
+          colorpickerTemplate.find('.close-colorpicker').on('click', function () {
+            emitEvent('colorpicker-cleared');
+            hideColorpickerTemplate();
           });
 
           if (attrs.colorpickerIsOpen) {
