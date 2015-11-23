@@ -444,23 +444,19 @@ angular.module('colorpicker.module', [])
               fixedPosition = angular.isDefined(attrs.colorpickerFixedPosition) ? attrs.colorpickerFixedPosition : false,
               target = angular.isDefined(attrs.colorpickerParent) ? elem.parent() : angular.element(document.body),
               withInput = angular.isDefined(attrs.colorpickerWithInput) ? attrs.colorpickerWithInput : false,
-              inputTemplate = withInput ? '<input class="form-control" type="text" name="colorpicker-input">' : '',
-              closeButton = !inline ? '<i class="close close-colorpicker lk-icon-close"></i>' : '',
-              clearButton = !inline ? '<i class="fa fa-trash-o remove-colorpicker"></i>' : '',
+              inputTemplate = withInput ? '<input type="text" name="colorpicker-input">' : '',
+              closeButton = !inline ? '<button type="button" class="close close-colorpicker">&times;</button>' : '',
               template =
                   '<div class="colorpicker dropdown">' +
                       '<div class="dropdown-menu">' +
                       '<colorpicker-saturation><i></i></colorpicker-saturation>' +
                       '<colorpicker-hue><i></i></colorpicker-hue>' +
                       '<colorpicker-alpha><i></i></colorpicker-alpha>' +
-                      '<div class="colorpicker-controls">' +
                       inputTemplate +
-                      clearButton +
                       closeButton +
                       '</div>' +
-                      '</div>' +
                       '</div>',
-              colorpickerTemplate = angular.element(template),
+              colorpickerTemplate = angular.isDefined(attrs.colorpickerCustomTemplate) ? angular.element(attrs.colorpickerCustomTemplate) : angular.element(template),
               pickerColor = Color,
               sliderAlpha,
               sliderHue = colorpickerTemplate.find('colorpicker-hue'),
