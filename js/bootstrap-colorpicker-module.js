@@ -645,6 +645,11 @@ angular.module('colorpicker.module', [])
                 'top': positionOffset.top + elem[0].offsetHeight + 2,
                 'left': positionOffset.left - 118
               };
+            } else if (position === 'bottom-left') {
+              positionValue = {
+                'top': positionOffset.top + elem[0].offsetHeight + 2,
+                'left': positionOffset.left - 2
+              }
             } else if (position === 'left') {
               positionValue = {
                 'top': positionOffset.top,
