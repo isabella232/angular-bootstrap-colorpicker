@@ -444,7 +444,7 @@ angular.module('colorpicker.module', [])
               fixedPosition = angular.isDefined(attrs.colorpickerFixedPosition) ? attrs.colorpickerFixedPosition : false,
               target = angular.isDefined(attrs.colorpickerParent) ? elem.parent() : angular.element(document.body),
               withInput = angular.isDefined(attrs.colorpickerWithInput) ? attrs.colorpickerWithInput : false,
-              inputTemplate = withInput ? '<input class="form-control" type="text" name="colorpicker-input">' : '',
+              inputTemplate = withInput ? '<input type="text" name="colorpicker-input">' : '',
               closeButton = !inline ? '<button type="button" class="close close-colorpicker">&times;</button>' : '',
               template =
                   '<div class="colorpicker dropdown">' +
@@ -452,13 +452,11 @@ angular.module('colorpicker.module', [])
                       '<colorpicker-saturation><i></i></colorpicker-saturation>' +
                       '<colorpicker-hue><i></i></colorpicker-hue>' +
                       '<colorpicker-alpha><i></i></colorpicker-alpha>' +
-                      '<div class="colorpicker-controls">' +
                       inputTemplate +
                       closeButton +
                       '</div>' +
-                      '</div>' +
                       '</div>',
-              colorpickerTemplate = angular.element(template),
+              colorpickerTemplate = angular.isDefined(attrs.colorpickerCustomTemplate) ? angular.element(attrs.colorpickerCustomTemplate) : angular.element(template),
               pickerColor = Color,
               sliderAlpha,
               sliderHue = colorpickerTemplate.find('colorpicker-hue'),
@@ -647,6 +645,11 @@ angular.module('colorpicker.module', [])
                 'top': positionOffset.top + elem[0].offsetHeight + 2,
                 'left': positionOffset.left - 118
               };
+            } else if (position === 'bottom-left') {
+              positionValue = {
+                'top': positionOffset.top + elem[0].offsetHeight + 2,
+                'left': positionOffset.left - 2
+              }
             } else if (position === 'left') {
               positionValue = {
                 'top': positionOffset.top,
@@ -723,9 +726,14 @@ angular.module('colorpicker.module', [])
             }
           };
 
-          colorpickerTemplate.find('button').on('click', function () {
-            hideColorpickerTemplate();
+          colorpickerTemplate.find('.remove-colorpicker').on('click', function () {
             emitEvent('colorpicker-removed');
+            hideColorpickerTemplate();
+          });
+
+          colorpickerTemplate.find('.close-colorpicker').on('click', function () {
+            emitEvent('colorpicker-cleared');
+            hideColorpickerTemplate();
           });
 
           if (attrs.colorpickerIsOpen) {
